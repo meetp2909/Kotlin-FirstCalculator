@@ -19,3 +19,5 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 =======
 # Kotlin-FirstCalculator
 >>>>>>> 4c91d2f5d5efa48517ef392b80f05fe7a7501fd4
+> 
+> Unable to add package at calculator.kt file
