@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -39,6 +40,19 @@ fun CalcView() {
         Spacer(modifier = Modifier.height(16.dp))
         CalcRow() // Using the CalcRow composable function
     }
+}
+
+
+@Composable
+fun CalcDisplay(value: String) {
+    Text(
+        text = value,
+        style = MaterialTheme.typography.h4,
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        textAlign = TextAlign.End
+    )
 }
 
 @Composable
