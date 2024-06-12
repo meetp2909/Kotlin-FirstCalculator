@@ -38,7 +38,7 @@ fun CalcView() {
             Text(text = "Click me")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        CalcRow() // Using the CalcRow composable function
+        CalcRow()
     }
 }
 
@@ -71,6 +71,12 @@ fun CalcRow() {
         }
         Button(onClick = { /* Handle button click */ }) {
             Text(text = "3")
+        }
+    }
+    @Composable
+    fun CalcNumericButton(number: String, onClick: () -> Unit) {
+        Button(onClick = onClick) {
+            Text(text = number)
         }
     }
 }
