@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             App()
         }
@@ -26,6 +25,7 @@ class MainActivity : ComponentActivity() {
 fun AppAndroidPreview() {
     App()
 }
+
 @Composable
 fun CalcView() {
     Column(
@@ -35,6 +35,28 @@ fun CalcView() {
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {}) {
             Text(text = "Click me")
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        CalcRow() // Using the CalcRow composable function
+    }
+}
+
+@Composable
+fun CalcRow() {
+    Row(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Button(onClick = { /* Handle button click */ }) {
+            Text(text = "1")
+        }
+        Button(onClick = { /* Handle button click */ }) {
+            Text(text = "2")
+        }
+        Button(onClick = { /* Handle button click */ }) {
+            Text(text = "3")
         }
     }
 }
