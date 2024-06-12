@@ -2,6 +2,10 @@ package org.multicalculator.project
 
 import App
 import android.os.Bundle
+import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.ui.unit.dp
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
@@ -21,4 +25,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppAndroidPreview() {
     App()
+}
+@Composable
+fun CalcView() {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
+        Text(text = "Simple Calculator", style = MaterialTheme.typography.h5)
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = {}) {
+            Text(text = "Click me")
+        }
+    }
 }
