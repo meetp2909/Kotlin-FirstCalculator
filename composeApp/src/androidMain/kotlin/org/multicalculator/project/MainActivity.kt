@@ -107,9 +107,10 @@ fun CalcNumericButton(number: String, onClick: () -> Unit) {
 
 @Composable
 fun CalcOperationButton(operation: String, display: String, onDisplayChange: (String) -> Unit) {
-    Button(onClick = {
-        onDisplayChange(display + operation)
-    }) {
+    Button(
+        onClick = { /* Empty onClick */ },
+        modifier = Modifier.padding(4.dp)
+    ) {
         Text(text = operation)
     }
 }
