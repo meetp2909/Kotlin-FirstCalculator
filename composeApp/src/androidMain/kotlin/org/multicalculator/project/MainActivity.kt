@@ -102,3 +102,9 @@ fun CalcOperationButton(operation: String, onClick: () -> Unit) {
         Text(text = operation)
     }
 }
+@Composable
+fun CalcEqualsButton(onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        Text(text = "=")
+    }
+}
