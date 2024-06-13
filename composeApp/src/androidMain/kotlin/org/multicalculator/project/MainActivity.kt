@@ -28,22 +28,22 @@ fun AppAndroidPreview() {
 
 @Composable
 fun App() {
-    var display by remember { mutableStateOf("") }
-    CalcView(display = display, onDisplayChange = { display = it })
+    val display = remember { mutableStateOf("") }
+    CalcView(display = display)
 }
 
 @Composable
-fun CalcView(display: String, onDisplayChange: (String) -> Unit) {
+fun CalcView(display: MutableState<String>) {
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
         Text(text = "Simple Calculator", style = MaterialTheme.typography.h5)
         Spacer(modifier = Modifier.height(16.dp))
-        CalcDisplay(value = display)
+        CalcDisplay(value = display.value)
         Spacer(modifier = Modifier.height(16.dp))
-        CalcRow(onDisplayChange = onDisplayChange)
+        CalcRow(display = display)
         Spacer(modifier = Modifier.height(16.dp))
-        CalcOperationRow(display = display, onDisplayChange = onDisplayChange)
+        CalcOperationRow(display = display)
         Spacer(modifier = Modifier.height(16.dp))
         CalcEqualsButton(onClick = { /* Handle equals click */ })
     }
@@ -62,51 +62,55 @@ fun CalcDisplay(value: String) {
 }
 
 @Composable
-fun CalcRow(onDisplayChange: (String) -> Unit) {
+fun CalcRow(display: MutableState<String>) {
     Row(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        CalcNumericButton("1", onClick = { onDisplayChange("1") })
-        CalcNumericButton("2", onClick = { onDisplayChange("2") })
-        CalcNumericButton("3", onClick = { onDisplayChange("3") })
-        CalcNumericButton("4", onClick = { onDisplayChange("4") })
-        CalcNumericButton("5", onClick = { onDisplayChange("5") })
-        CalcNumericButton("6", onClick = { onDisplayChange("6") })
-        CalcNumericButton("7", onClick = { onDisplayChange("7") })
-        CalcNumericButton("8", onClick = { onDisplayChange("8") })
-        CalcNumericButton("9", onClick = { onDisplayChange("9") })
-        CalcNumericButton("0", onClick = { onDisplayChange("0") })
+        CalcNumericButton(number = 1, display = display)
+        CalcNumericButton(number = 2, display = display)
+        CalcNumericButton(number = 3, display = display)
+        CalcNumericButton(number = 4, display = display)
+        CalcNumericButton(number = 5, display = display)
+        CalcNumericButton(number = 6, display = display)
+        CalcNumericButton(number = 7, display = display)
+        CalcNumericButton(number = 8, display = display)
+        CalcNumericButton(number = 9, display = display)
+
 
     }
 }
 
 @Composable
-fun CalcOperationRow(display: String, onDisplayChange: (String) -> Unit) {
+fun CalcOperationRow(display: MutableState<String>) {
     Row(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        CalcOperationButton("+", display = display, onDisplayChange = onDisplayChange)
-        CalcOperationButton("-", display = display, onDisplayChange = onDisplayChange)
-        CalcOperationButton("*", display = display, onDisplayChange = onDisplayChange)
-        CalcOperationButton("/", display = display, onDisplayChange = onDisplayChange)
+        CalcOperationButton(operation = "+", display = display)
+        CalcOperationButton(operation = "-", display = display)
+        CalcOperationButton(operation = "*", display = display)
+        CalcOperationButton(operation = "/", display = display)
     }
 }
 
 @Composable
-fun CalcNumericButton(number: String, onClick: () -> Unit) {
-    Button(onClick = onClick) {
-        Text(text = number)
+fun CalcNumericButton(number: Int, display: MutableState<String>) {
+    Button(
+        onClick = {
+            display.value += number.toString()
+        }
+    ) {
+        Text(text = number.toString())
     }
 }
 
 @Composable
-fun CalcOperationButton(operation: String, display: String, onDisplayChange: (String) -> Unit) {
+fun CalcOperationButton(operation: String, display: MutableState<String>) {
     Button(
         onClick = { /* Empty onClick */ },
         modifier = Modifier.padding(4.dp)
