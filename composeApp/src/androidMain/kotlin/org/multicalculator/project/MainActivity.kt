@@ -39,9 +39,9 @@ fun CalcView(display: MutableState<String>) {
     ) {
         Text(text = "Simple Calculator", style = MaterialTheme.typography.h5)
         Spacer(modifier = Modifier.height(16.dp))
-        CalcDisplay(value = display.value)
+        CalcDisplay(display = display)
         Spacer(modifier = Modifier.height(16.dp))
-        CalcRow(display = display)
+        CalcRow(display = display, startNum = 0, numButtons = 9)
         Spacer(modifier = Modifier.height(16.dp))
         CalcOperationRow(display = display)
         Spacer(modifier = Modifier.height(16.dp))
@@ -50,36 +50,16 @@ fun CalcView(display: MutableState<String>) {
 }
 
 @Composable
-fun CalcDisplay(value: String) {
+fun CalcDisplay(display: MutableState<String>) {
     Text(
-        text = value,
+        text = display.value,
         style = MaterialTheme.typography.h4,
         modifier = Modifier
-            .padding(8.dp)
+            .height(50.dp)
+            .padding(5.dp)
             .fillMaxWidth(),
         textAlign = TextAlign.End
     )
-}
-
-@Composable
-fun CalcRow(display: MutableState<String>) {
-    Row(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        CalcNumericButton(number = 1, display = display)
-        CalcNumericButton(number = 2, display = display)
-        CalcNumericButton(number = 3, display = display)
-        CalcNumericButton(number = 4, display = display)
-        CalcNumericButton(number = 5, display = display)
-        CalcNumericButton(number = 6, display = display)
-        CalcNumericButton(number = 7, display = display)
-        CalcNumericButton(number = 8, display = display)
-        CalcNumericButton(number = 9, display = display)
-        CalcNumericButton(number = 0, display = display)
-    }
 }
 
 @Composable
@@ -94,6 +74,20 @@ fun CalcOperationRow(display: MutableState<String>) {
         CalcOperationButton(operation = "-", display = display)
         CalcOperationButton(operation = "*", display = display)
         CalcOperationButton(operation = "/", display = display)
+    }
+}
+
+@Composable
+fun CalcRow(display: MutableState<String>, startNum: Int, numButtons: Int) {
+    Row(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        for (i in startNum until startNum + numButtons) {
+            CalcNumericButton(number = i, display = display)
+        }
     }
 }
 
