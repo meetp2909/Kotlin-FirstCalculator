@@ -78,8 +78,7 @@ fun CalcRow(display: MutableState<String>) {
         CalcNumericButton(number = 7, display = display)
         CalcNumericButton(number = 8, display = display)
         CalcNumericButton(number = 9, display = display)
-
-
+        CalcNumericButton(number = 0, display = display)
     }
 }
 
@@ -103,7 +102,8 @@ fun CalcNumericButton(number: Int, display: MutableState<String>) {
     Button(
         onClick = {
             display.value += number.toString()
-        }
+        },
+        modifier = Modifier.padding(4.dp)
     ) {
         Text(text = number.toString())
     }
@@ -112,7 +112,9 @@ fun CalcNumericButton(number: Int, display: MutableState<String>) {
 @Composable
 fun CalcOperationButton(operation: String, display: MutableState<String>) {
     Button(
-        onClick = { /* Empty onClick */ },
+        onClick = {
+            display.value += operation
+        },
         modifier = Modifier.padding(4.dp)
     ) {
         Text(text = operation)
@@ -125,3 +127,4 @@ fun CalcEqualsButton(onClick: () -> Unit) {
         Text(text = "=")
     }
 }
+
