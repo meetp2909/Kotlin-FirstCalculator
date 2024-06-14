@@ -30,7 +30,6 @@ fun AppAndroidPreview() {
 
 @Composable
 fun App() {
-    val display = remember { mutableStateOf("") }
     CalcView()
 }
 
@@ -52,7 +51,10 @@ fun CalcView() {
             CalcRow(display = displayText, startNum = 0, numButtons = 9)
         }
         Spacer(modifier = Modifier.height(16.dp))
-        CalcOperationRow(display = displayText)
+        Row {
+            Spacer(modifier = Modifier.width(16.dp))
+            CalcOperationColumn(display = displayText)
+        }
         Spacer(modifier = Modifier.height(16.dp))
         CalcEqualsButton(onClick = { /* Handle equals click */ })
     }
@@ -68,6 +70,13 @@ fun CalcDisplay(display: MutableState<String>) {
             .fillMaxWidth(),
         textAlign = TextAlign.End
     )
+}
+
+@Composable
+fun CalcOperationColumn(display: MutableState<String>) {
+    Column {
+        CalcOperationRow(display = display)
+    }
 }
 
 @Composable
