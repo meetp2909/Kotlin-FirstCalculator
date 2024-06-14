@@ -3,10 +3,12 @@ package org.multicalculator.project
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,26 +31,32 @@ fun AppAndroidPreview() {
 @Composable
 fun App() {
     val display = remember { mutableStateOf("") }
-    CalcView(display = display)
+    CalcView()
 }
 
+
 @Composable
-fun CalcView(display: MutableState<String>) {
+fun CalcView() {
+    val displayText = remember { mutableStateOf("0") }
+
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier
+            .padding(16.dp)
+            .background(Color.LightGray)
     ) {
-        Text(text = "Simple Calculator", style = MaterialTheme.typography.h5)
+        Row {
+            CalcDisplay(display = displayText)
+        }
+        Row {
+            Spacer(modifier = Modifier.height(16.dp))
+            CalcRow(display = displayText, startNum = 0, numButtons = 9)
+        }
         Spacer(modifier = Modifier.height(16.dp))
-        CalcDisplay(display = display)
-        Spacer(modifier = Modifier.height(16.dp))
-        CalcRow(display = display, startNum = 0, numButtons = 9)
-        Spacer(modifier = Modifier.height(16.dp))
-        CalcOperationRow(display = display)
+        CalcOperationRow(display = displayText)
         Spacer(modifier = Modifier.height(16.dp))
         CalcEqualsButton(onClick = { /* Handle equals click */ })
     }
 }
-
 @Composable
 fun CalcDisplay(display: MutableState<String>) {
     Text(
@@ -79,13 +87,12 @@ fun CalcOperationRow(display: MutableState<String>) {
 
 @Composable
 fun CalcRow(display: MutableState<String>, startNum: Int, numButtons: Int) {
+    val endNum = startNum + numButtons
     Row(
         modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(0.dp)
     ) {
-        for (i in startNum until startNum + numButtons) {
+        for (i in startNum until endNum) {
             CalcNumericButton(number = i, display = display)
         }
     }
