@@ -58,6 +58,16 @@ fun CalcView() {
         rightNumber = displayText.value.toInt()
         displayText.value = rightNumber.toString()
         complete = true
+    }else {
+        leftNumber = displayText.value.toInt()
+        displayText.value = leftNumber.toString()
+    }
+
+    fun numberPress() {
+    }
+    fun operationPress() {
+    }
+    fun equalsPress() {
     }
     Column(
         modifier = Modifier
