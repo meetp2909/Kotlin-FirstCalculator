@@ -56,6 +56,7 @@ fun CalcView() {
         complete = false
     } else if (operation.isNotEmpty() && !complete) {
         rightNumber = displayText.value.toInt()
+        displayText.value = rightNumber.toString()
         complete = true
     }
     Column(
