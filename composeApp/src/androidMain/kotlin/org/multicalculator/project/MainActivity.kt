@@ -42,20 +42,22 @@ fun CalcView() {
     var operation by rememberSaveable { mutableStateOf("") }
     var complete by rememberSaveable { mutableStateOf(false) }
     if (complete && operation.isNotEmpty()) {
-        val result = when (operation) {
-            "+" -> leftNumber + rightNumber
-            "-" -> leftNumber - rightNumber
-            "*" -> leftNumber * rightNumber
-            "/" -> if (rightNumber != 0) leftNumber / rightNumber else "Error"
-            else -> "Error"
+        var answer = 0
+        when (operation) {
+            "+" -> answer = leftNumber + rightNumber
+            "-" -> answer = leftNumber - rightNumber
+            "*" -> answer = leftNumber * rightNumber
+            "/" -> if (rightNumber != 0) answer = leftNumber / rightNumber else displayText.value = "Error"
         }
-        displayText.value = result.toString()
+        displayText.value = answer.toString()
         leftNumber = 0
         rightNumber = 0
         operation = ""
         complete = false
+    } else if (operation.isNotEmpty() && !complete) {
+        rightNumber = displayText.value.toInt()
+        complete = true
     }
-
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -93,6 +95,7 @@ fun CalcView() {
         }
     }
 }
+
 
 @Composable
 fun CalcDisplay(display: MutableState<String>) {
