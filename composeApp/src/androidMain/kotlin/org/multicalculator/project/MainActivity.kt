@@ -36,11 +36,25 @@ fun App() {
 
 @Composable
 fun CalcView() {
-    val displayText = remember { mutableStateOf("0") }
+    val displayText = rememberSaveable { mutableStateOf("0") }
     var leftNumber by rememberSaveable { mutableStateOf(0) }
     var rightNumber by rememberSaveable { mutableStateOf(0) }
     var operation by rememberSaveable { mutableStateOf("") }
     var complete by rememberSaveable { mutableStateOf(false) }
+    if (complete && operation.isNotEmpty()) {
+        val result = when (operation) {
+            "+" -> leftNumber + rightNumber
+            "-" -> leftNumber - rightNumber
+            "*" -> leftNumber * rightNumber
+            "/" -> if (rightNumber != 0) leftNumber / rightNumber else "Error"
+            else -> "Error"
+        }
+        displayText.value = result.toString()
+        leftNumber = 0
+        rightNumber = 0
+        operation = ""
+        complete = false
+    }
 
     Column(
         modifier = Modifier
@@ -58,7 +72,15 @@ fun CalcView() {
                 for (i in 7 downTo 1 step 3) {
                     CalcRow(display = displayText, startNum = i, numButtons = 3)
                 }
-                CalcRow(display = displayText, startNum = 0, numButtons = 1)
+                Row(
+                    modifier = Modifier.padding(0.dp)
+                ) {
+                    CalcNumericButton(number = 0, display = displayText)
+                    CalcEqualsButton(display = displayText, onClick = {
+                        // Implement equals logic here
+                        complete = true
+                    })
+                }
             }
             Column(
                 modifier = Modifier.weight(1f)
@@ -67,8 +89,6 @@ fun CalcView() {
                 CalcOperationButton("-", displayText)
                 CalcOperationButton("*", displayText)
                 CalcOperationButton("/", displayText)
-                CalcEqualsButton(displayText, onClick = {
-                })
             }
         }
     }
